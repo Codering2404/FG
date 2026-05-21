@@ -1,0 +1,109 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+    id 'org.jetbrains.kotlin.plugin.compose'
+}
+
+android {
+    namespace 'com.focusguard.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.focusguard.app"
+        minSdk 26          // Android 8.0 — UsageStats API stable
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+        compose true
+        buildConfig true
+        resValues true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    // Compose
+    def composeBom = platform('androidx.compose:compose-bom:2024.02.01')
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.material:material-icons-extended'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+    implementation 'androidx.compose.runtime:runtime-livedata'
+    implementation 'io.coil-kt:coil-compose:2.6.0'
+
+    // AndroidX Core
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
+
+    // ViewModel + LiveData
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-service:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.7.0'
+
+    // Room (local DB)
+    implementation 'androidx.room:room-runtime:2.7.0-alpha11'
+    implementation 'androidx.room:room-ktx:2.7.0-alpha11'
+    ksp            'androidx.room:room-compiler:2.7.0-alpha11'
+
+    // DataStore (preferences)
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    // WorkManager (background jobs)
+    implementation 'androidx.work:work-runtime-ktx:2.9.0'
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // Firebase (notifications to accountability partner)
+    implementation platform('com.google.firebase:firebase-bom:32.7.2')
+    implementation 'com.google.firebase:firebase-common-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-functions-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Admob (ads for disable-unlock)
+    implementation 'com.google.android.gms:play-services-ads:23.0.0'
+
+    // Biometric (fingerprint alternative to PIN)
+    implementation 'androidx.biometric:biometric:1.2.0-alpha05'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
